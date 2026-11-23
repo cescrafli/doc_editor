@@ -1,4 +1,4 @@
-# AI-Native Workflow Note — Ajaia Docs
+# AI-Native Workflow Note — CESCTOR
 
 **Candidate:** Mochamad Rafli Mudji Prasetyo (`raflimudji@gmail.com`)
 

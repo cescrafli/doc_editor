@@ -1,4 +1,4 @@
-# Architecture & Prioritization Note — Ajaia Docs
+# Architecture & Prioritization Note — CESCTOR
 
 **Candidate:** Mochamad Rafli Mudji Prasetyo (`raflimudji@gmail.com`)
 

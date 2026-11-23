@@ -1,11 +1,11 @@
-# Ajaia Docs — Lightweight Collaborative Document Editor
+# CESCTOR — Lightweight Collaborative Document & Rich-Text Editor
 
 **Candidate:** Mochamad Rafli Mudji Prasetyo (`raflimudji@gmail.com`)  
 **Role:** AI-Native Full Stack Developer Assessment — Ajaia LLC  
 **Live Deployment URL:** [https://doc-editor-chi.vercel.app/](https://doc-editor-chi.vercel.app/)  
 **Google Drive Deliverables Folder:** [https://drive.google.com/drive/folders/1eEbielSfShxKB3t93SyZ9gPzIApxmEvG?usp=sharing](https://drive.google.com/drive/folders/1eEbielSfShxKB3t93SyZ9gPzIApxmEvG?usp=sharing)
 
-Ajaia Docs is a full-stack collaborative document workspace inspired by Google Docs, engineered with **Next.js 14 (App Router)**, **TypeScript**, **TipTap (ProseMirror)**, **Tailwind CSS**, and **Turso (`@libsql/client` / SQLite)**.
+**CESCTOR** is a full-stack collaborative document workspace inspired by Google Docs and Dillinger's split-pane editor/preview experience, engineered with **Next.js 14 (App Router)**, **TypeScript**, **TipTap (ProseMirror)**, **Tailwind CSS**, and **Turso (`@libsql/client` / SQLite)**.
 
 ---
 

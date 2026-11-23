@@ -2,7 +2,7 @@
 
 **Candidate:** Mochamad Rafli Mudji Prasetyo  
 **Email:** `raflimudji@gmail.com`  
-**Project Name:** **Ajaia Docs** — Lightweight Collaborative Document Workspace
+**Project Name:** **CESCTOR** — Lightweight Collaborative Document Workspace
 
 ---
 

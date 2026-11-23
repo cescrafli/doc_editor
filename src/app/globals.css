@@ -3,26 +3,38 @@
 @tailwind utilities;
 
 :root {
-  --bg-surface: #f8fafc;
+  --bg-sidebar: #2B2F36;
+  --bg-navbar: #373D49;
+  --plum: #35D7BB;
+  --bg-highlight: #1D212A;
+  --bg-button-save: #4A5261;
+  --bg-primary: #FFFFFF;
+  --bg-preview: #FAFBFC;
+  --text-primary: #373D49;
+  --text-invert: #FFFFFF;
+  --text-muted: #A0AABF;
+  --dropdown-link: #D0D6E2;
+  --border-light: #E8E8E8;
 }
 
 body {
-  background-color: #f8fafc;
-  color: #0f172a;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #FFFFFF;
+  color: #373D49;
+  font-family: 'Source Sans 3', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-/* TipTap Rich-Text Editor Document Canvas Styles */
+/* Cesctor (Dillinger-inspired) Left Pane Editor Styles */
 .ProseMirror {
   outline: none;
-  min-height: 520px;
-  line-height: 1.7;
-  color: #1e293b;
-  font-size: 1rem;
+  min-height: 100%;
+  line-height: 1.75;
+  color: #373D49;
+  font-size: 0.95rem;
+  font-family: 'Ubuntu Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 .ProseMirror p.is-editor-empty:first-child::before {
-  color: #94a3b8;
+  color: #A0AABF;
   content: attr(data-placeholder);
   float: left;
   height: 0;
@@ -30,30 +42,33 @@ body {
 }
 
 .ProseMirror h1 {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
+  font-size: 1.65rem;
+  line-height: 2.1rem;
   font-weight: 700;
-  color: #0f172a;
-  margin-top: 1.25rem;
-  margin-bottom: 0.75rem;
+  color: #2B2F36;
+  margin-top: 1rem;
+  margin-bottom: 0.65rem;
+  font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
 }
 
 .ProseMirror h2 {
-  font-size: 1.4rem;
-  line-height: 1.9rem;
+  font-size: 1.35rem;
+  line-height: 1.8rem;
   font-weight: 600;
-  color: #0f172a;
-  margin-top: 1.1rem;
+  color: #2B2F36;
+  margin-top: 0.95rem;
   margin-bottom: 0.5rem;
+  font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
 }
 
 .ProseMirror h3 {
-  font-size: 1.15rem;
-  line-height: 1.65rem;
+  font-size: 1.125rem;
+  line-height: 1.55rem;
   font-weight: 600;
-  color: #1e293b;
-  margin-top: 0.9rem;
+  color: #373D49;
+  margin-top: 0.8rem;
   margin-bottom: 0.4rem;
+  font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
 }
 
 .ProseMirror p {
@@ -62,13 +77,13 @@ body {
 
 .ProseMirror ul {
   list-style-type: disc;
-  padding-left: 1.6rem;
+  padding-left: 1.5rem;
   margin-bottom: 0.85rem;
 }
 
 .ProseMirror ol {
   list-style-type: decimal;
-  padding-left: 1.6rem;
+  padding-left: 1.5rem;
   margin-bottom: 0.85rem;
 }
 
@@ -81,29 +96,28 @@ body {
 }
 
 .ProseMirror blockquote {
-  border-left: 4px solid #6366f1;
-  background-color: #f8fafc;
-  padding: 0.6rem 1rem;
-  margin: 1rem 0;
-  color: #334155;
+  border-left: 4px solid #35D7BB;
+  background-color: #F5F7FA;
+  padding: 0.5rem 1rem;
+  margin: 0.85rem 0;
+  color: #4A5261;
   font-style: italic;
-  border-radius: 0 0.375rem 0.375rem 0;
 }
 
 .ProseMirror pre {
-  background-color: #0f172a;
-  color: #f8fafc;
+  background-color: #2B2F36;
+  color: #FFFFFF;
   padding: 0.85rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
   overflow-x: auto;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: 'Ubuntu Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.875rem;
   margin: 0.85rem 0;
 }
 
 .ProseMirror code {
-  background-color: #f1f5f9;
-  color: #be185d;
+  background-color: #F5F7FA;
+  color: #2B2F36;
   padding: 0.15rem 0.35rem;
   border-radius: 0.25rem;
   font-size: 0.875em;
@@ -113,6 +127,113 @@ body {
   background: transparent;
   color: inherit;
   padding: 0;
+}
+
+/* Right Pane Dillinger Live Preview Styles (.preview-html) */
+.preview-html {
+  font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: #373D49;
+}
+
+.preview-html h1,
+.preview-html h2,
+.preview-html h3,
+.preview-html h4 {
+  font-family: 'Source Sans 3', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  color: #373D49;
+  margin-top: 1.35em;
+  margin-bottom: 0.6em;
+}
+
+.preview-html h1 {
+  font-size: 2em;
+  line-height: 1.25;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #E8E8E8;
+  margin-top: 0.2em;
+}
+
+.preview-html h2 {
+  font-size: 1.5em;
+  line-height: 1.3;
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.preview-html h3 {
+  font-size: 1.25em;
+  line-height: 1.4;
+}
+
+.preview-html p {
+  margin-bottom: 1em;
+}
+
+.preview-html ul {
+  list-style-type: disc;
+  padding-left: 1.75em;
+  margin-bottom: 1em;
+}
+
+.preview-html ol {
+  list-style-type: decimal;
+  padding-left: 1.75em;
+  margin-bottom: 1em;
+}
+
+.preview-html li {
+  margin-bottom: 0.35em;
+}
+
+.preview-html blockquote {
+  border-left: 4px solid #A0AABF;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: #666666;
+  font-style: italic;
+}
+
+.preview-html code {
+  font-family: 'Ubuntu Mono', Monaco, monospace, Consolas;
+  background-color: #F5F7FA;
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.preview-html pre {
+  font-family: 'Ubuntu Mono', Monaco, monospace, Consolas;
+  background-color: #F5F7FA;
+  padding: 1em;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin-bottom: 1em;
+}
+
+.preview-html a {
+  color: #35D7BB;
+  text-decoration: underline;
+}
+
+.dark-preview.preview-html {
+  background-color: #1E1E1E;
+  color: #D4D4D4;
+}
+
+.dark-preview.preview-html h1,
+.dark-preview.preview-html h2,
+.dark-preview.preview-html h3 {
+  color: #FFFFFF;
+  border-bottom-color: #333333;
+}
+
+.dark-preview.preview-html code,
+.dark-preview.preview-html pre {
+  background-color: #2D2D2D;
+  color: #E2E8F0;
 }
 
 @media print {
@@ -127,6 +248,7 @@ body {
     border: none !important;
     padding: 0 !important;
     margin: 0 !important;
+    width: 100% !important;
     max-width: 100% !important;
   }
 }
