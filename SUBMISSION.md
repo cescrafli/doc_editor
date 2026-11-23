@@ -9,8 +9,8 @@
 ## 1. Deliverables & Links Manifest
 
 - **Google Drive Deliverables Folder:** https://drive.google.com/drive/folders/1eEbielSfShxKB3t93SyZ9gPzIApxmEvG?usp=sharing
+- **Live Product Deployment URL (Vercel + Turso):** https://doc-editor-chi.vercel.app/
 - **GitHub Repository:** https://github.com/cescrafli/doc_editor
-- **Live Product Deployment URL (Vercel + Turso):** `[PASTE_YOUR_LIVE_VERCEL_URL_HERE]`
 - **Walkthrough Video URL (3–5 min Loom / YouTube):** `[PASTE_YOUR_WALKTHROUGH_VIDEO_URL_HERE]`
 
 ### Files Included in Google Drive Folder & Repository

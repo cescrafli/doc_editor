@@ -1,5 +1,14 @@
 Walkthrough Video URL (3-5 minutes):
 [PASTE_YOUR_LOOM_OR_YOUTUBE_UNLISTED_URL_HERE]
 
+Live Product Deployment URL:
+https://doc-editor-chi.vercel.app/
+
+Google Drive Deliverables Folder:
+https://drive.google.com/drive/folders/1eEbielSfShxKB3t93SyZ9gPzIApxmEvG?usp=sharing
+
+GitHub Repository:
+https://github.com/cescrafli/doc_editor
+
 Candidate: Mochamad Rafli Mudji Prasetyo (raflimudji@gmail.com)
 Assignment: Ajaia LLC — AI-Native Full Stack Developer Assignment (Ajaia Docs)
