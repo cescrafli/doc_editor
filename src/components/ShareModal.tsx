@@ -39,9 +39,6 @@ export default function ShareModal({
 
   const isOwner = document.accessRole === 'owner';
 
-  // Quick-pick users who are not the owner
-  const candidateUsers = allUsers.filter((u) => u.id !== document.ownerId);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) {
@@ -157,39 +154,6 @@ export default function ShareModal({
                   <UserPlus className="h-4 w-4" />
                   <span>Share</span>
                 </button>
-              </div>
-
-              {/* Quick-pick seeded accounts */}
-              <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                <span className="text-[11px] font-medium text-slate-400">
-                  Quick pick seeded accounts:
-                </span>
-                {candidateUsers.map((u) => {
-                  const existingShare = document.shares.find((s) => s.userId === u.id);
-                  return (
-                    <button
-                      key={u.id}
-                      type="button"
-                      onClick={() => setEmail(u.email)}
-                      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs transition-colors ${
-                        email === u.email
-                          ? 'border-indigo-500 bg-indigo-50 text-indigo-700 font-medium'
-                          : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100'
-                      }`}
-                    >
-                      <span
-                        className="h-2 w-2 rounded-full"
-                        style={{ backgroundColor: u.avatarColor }}
-                      />
-                      <span>{u.name}</span>
-                      {existingShare && (
-                        <span className="text-[10px] text-slate-400">
-                          ({existingShare.role})
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
               </div>
             </form>
           ) : (
