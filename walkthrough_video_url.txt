@@ -1,5 +1,5 @@
 Walkthrough Video URL (3-5 minutes):
-[PASTE_YOUR_LOOM_OR_YOUTUBE_UNLISTED_URL_HERE]
+https://youtu.be/nNzCs00_gCE
 
 Live Product Deployment URL:
 https://doc-editor-chi.vercel.app/
