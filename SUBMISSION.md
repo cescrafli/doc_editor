@@ -11,7 +11,7 @@
 - **Google Drive Deliverables Folder:** https://drive.google.com/drive/folders/1eEbielSfShxKB3t93SyZ9gPzIApxmEvG?usp=sharing
 - **Live Product Deployment URL (Vercel + Turso):** https://doc-editor-chi.vercel.app/
 - **GitHub Repository:** https://github.com/cescrafli/doc_editor
-- **Walkthrough Video URL (3–5 min YouTube):** https://youtu.be/nNzCs00_gCE
+- **Walkthrough Video URL (3–5 min YouTube):** https://youtu.be/kfsXUIBqLaE
 
 ### Files Included in Google Drive Folder & Repository
 1. **Source Code** (`src/`, `package.json`, `tsconfig.json`, `vitest.config.ts`, `samples/sample-import.md`)
