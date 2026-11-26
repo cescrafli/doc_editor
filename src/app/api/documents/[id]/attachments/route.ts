@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import {
   addDocumentAttachment,
   deleteDocumentAttachment,
-} from '@/lib/document-service';
-import { validateAndExtractAttachment, FileValidationError } from '@/lib/file-parser';
-import { getActingUserId, handleApiError } from '@/lib/api-helpers';
+} from '@/lib/services/document.service';
+import { FileValidationError, validateAndExtractAttachment } from '@/lib/utils/file-parser';
+import { getActingUserId, handleApiError } from '@/lib/api/http';
 
 export const dynamic = 'force-dynamic';
 

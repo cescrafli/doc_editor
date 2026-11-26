@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createDocument, listAccessibleDocuments } from '@/lib/document-service';
-import { getActingUserId, handleApiError } from '@/lib/api-helpers';
+import { createDocument, listAccessibleDocuments } from '@/lib/services/document.service';
+import { getActingUserId, handleApiError } from '@/lib/api/http';
 
 export const dynamic = 'force-dynamic';
 

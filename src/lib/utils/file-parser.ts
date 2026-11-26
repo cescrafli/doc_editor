@@ -67,7 +67,6 @@ export function plainTextToHtml(text: string): string {
 }
 
 export function sanitizeImportedHtml(rawHtml: string): string {
-  // Remove script, style, iframe, object, embed tags and inline event handlers
   let cleaned = rawHtml
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
     .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
@@ -111,15 +110,12 @@ export async function parseFileToHtml(
   let htmlContent = '<p></p>';
 
   if (ext === '.txt') {
-    const text = buffer.toString('utf-8');
-    htmlContent = plainTextToHtml(text);
+    htmlContent = plainTextToHtml(buffer.toString('utf-8'));
   } else if (ext === '.md' || ext === '.markdown') {
-    const mdText = buffer.toString('utf-8');
-    const rendered = await marked.parse(mdText, { async: true });
+    const rendered = await marked.parse(buffer.toString('utf-8'), { async: true });
     htmlContent = sanitizeImportedHtml(rendered);
   } else if (ext === '.html' || ext === '.htm') {
-    const rawHtml = buffer.toString('utf-8');
-    htmlContent = sanitizeImportedHtml(rawHtml);
+    htmlContent = sanitizeImportedHtml(buffer.toString('utf-8'));
   } else if (ext === '.docx') {
     try {
       const result = await mammoth.convertToHtml({ buffer });

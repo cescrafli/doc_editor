@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import {
   removeDocumentShare,
   shareDocumentWithUser,
-} from '@/lib/document-service';
-import { getActingUserId, handleApiError } from '@/lib/api-helpers';
+} from '@/lib/services/document.service';
+import { getActingUserId, handleApiError } from '@/lib/api/http';
 import type { ShareRole } from '@/types';
 
 export const dynamic = 'force-dynamic';

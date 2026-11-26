@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ServiceError } from './document-service';
-import { FileValidationError } from './file-parser';
+import { ServiceError } from '@/lib/services/document.service';
+import { FileValidationError } from '@/lib/utils/file-parser';
 
 export function getActingUserId(req: NextRequest): string {
   const headerUser = req.headers.get('x-user-id')?.trim();

@@ -1,6 +1,6 @@
-# Ajaia Product Specification (Sample Markdown Import)
+# CESCTOR Product Specification (Sample Markdown Import)
 
-This sample file demonstrates **Ajaia Docs** converting a `.md` file directly into an editable rich-text document.
+This sample file demonstrates **CESCTOR** converting a `.md` file directly into an editable rich-text document.
 
 ## 1. Supported Rich-Text Features
 
@@ -11,7 +11,7 @@ This sample file demonstrates **Ajaia Docs** converting a `.md` file directly in
 
 ## 2. Action Items
 
-1. Test importing this file via **Upload / Import File -> New Document**.
+1. Test importing this file via **Import -> New Document**.
 2. Share the resulting document with **Sarah Chen** (`sarah@ajaia.com`) as an **Editor**.
 3. Share with **Maya Patel** (`maya@ajaia.com`) as a **Viewer** and switch accounts in the top-right menu to verify read-only enforcement.
 

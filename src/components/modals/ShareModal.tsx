@@ -16,7 +16,6 @@ import type { DocumentDetail, ShareRole, User } from '@/types';
 
 interface ShareModalProps {
   document: DocumentDetail;
-  allUsers: User[];
   currentUser: User;
   onClose: () => void;
   onShare: (email: string, role: ShareRole) => Promise<void>;
@@ -25,7 +24,6 @@ interface ShareModalProps {
 
 export default function ShareModal({
   document,
-  allUsers,
   currentUser,
   onClose,
   onShare,
@@ -42,7 +40,7 @@ export default function ShareModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) {
-      setError('Please enter or select a user email.');
+      setError('Please enter a user email.');
       return;
     }
     setLoading(true);
@@ -90,7 +88,6 @@ export default function ShareModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-xs">
       <div className="w-full max-w-lg overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
-        {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">
           <div>
             <h3 className="text-base font-semibold text-slate-900">
@@ -124,7 +121,6 @@ export default function ShareModal({
             </div>
           )}
 
-          {/* Add Collaborator Form (Owner Only) */}
           {isOwner ? (
             <form onSubmit={handleSubmit} className="space-y-3">
               <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
@@ -136,12 +132,12 @@ export default function ShareModal({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter teammate email (e.g. sarah@ajaia.com)"
-                  className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                  className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 focus:border-[#35D7BB] focus:outline-none focus:ring-2 focus:ring-[#35D7BB]/20"
                 />
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value as ShareRole)}
-                  className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-700 focus:border-indigo-500 focus:outline-none"
+                  className="rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-700 focus:border-[#35D7BB] focus:outline-none"
                 >
                   <option value="editor">Editor (Can edit)</option>
                   <option value="viewer">Viewer (Read-only)</option>
@@ -149,7 +145,7 @@ export default function ShareModal({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-xs hover:bg-indigo-700 disabled:opacity-50"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#35D7BB] px-4 py-2 text-sm font-bold text-[#2B2F36] shadow-xs hover:opacity-90 disabled:opacity-50"
                 >
                   <UserPlus className="h-4 w-4" />
                   <span>Share</span>
@@ -165,14 +161,12 @@ export default function ShareModal({
             </div>
           )}
 
-          {/* People with access list */}
           <div className="space-y-2.5">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               People with Access ({1 + document.shares.length})
             </h4>
 
             <div className="max-h-60 divide-y divide-slate-100 overflow-y-auto rounded-xl border border-slate-200 bg-white">
-              {/* Document Owner row */}
               <div className="flex items-center justify-between px-4 py-3">
                 <div className="flex items-center gap-3">
                   <div
@@ -193,18 +187,14 @@ export default function ShareModal({
                     <p className="text-xs text-slate-500">{document.ownerEmail}</p>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">
+                <span className="inline-flex items-center gap-1 rounded-full bg-[#2B2F36] px-2.5 py-1 text-xs font-semibold text-[#35D7BB]">
                   <Crown className="h-3.5 w-3.5" />
                   Owner
                 </span>
               </div>
 
-              {/* Shared Collaborators rows */}
               {document.shares.map((share) => (
-                <div
-                  key={share.id}
-                  className="flex items-center justify-between px-4 py-3"
-                >
+                <div key={share.id} className="flex items-center justify-between px-4 py-3">
                   <div className="flex items-center gap-3">
                     <div
                       className="flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold text-white"
@@ -231,12 +221,9 @@ export default function ShareModal({
                         value={share.role}
                         disabled={loading}
                         onChange={(e) =>
-                          handleRoleChange(
-                            share.userEmail,
-                            e.target.value as ShareRole
-                          )
+                          handleRoleChange(share.userEmail, e.target.value as ShareRole)
                         }
-                        className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700 focus:border-indigo-500 focus:outline-none"
+                        className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700 focus:border-[#35D7BB] focus:outline-none"
                       >
                         <option value="editor">Editor</option>
                         <option value="viewer">Viewer</option>
@@ -278,10 +265,9 @@ export default function ShareModal({
             </div>
           </div>
 
-          {/* Role legend */}
           <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 text-[11px] text-slate-500 space-y-1">
             <div className="flex items-center gap-1.5 font-semibold text-slate-700">
-              <ShieldCheck className="h-3.5 w-3.5 text-indigo-600" />
+              <ShieldCheck className="h-3.5 w-3.5 text-[#373D49]" />
               <span>Role Permissions Matrix</span>
             </div>
             <p>

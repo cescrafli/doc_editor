@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { findOrCreateUserByEmail, listUsers } from '@/lib/document-service';
-import { handleApiError } from '@/lib/api-helpers';
+import { findOrCreateUserByEmail, listUsers } from '@/lib/services/document.service';
+import { handleApiError } from '@/lib/api/http';
 
 export const dynamic = 'force-dynamic';
 

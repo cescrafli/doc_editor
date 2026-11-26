@@ -1,6 +1,6 @@
 import { type Client } from '@libsql/client';
 import { randomUUID } from 'crypto';
-import { ensureDbReady } from './db';
+import { ensureDbReady } from '@/lib/db/client';
 import type {
   AccessRole,
   DocumentAttachment,
@@ -20,6 +20,8 @@ export class ServiceError extends Error {
   }
 }
 
+const AVATAR_PALETTE = ['#4f46e5', '#059669', '#d97706', '#db2777', '#0284c7', '#7c3aed'];
+
 function stripHtmlForExcerpt(html: string, maxLen = 140): string {
   const plain = html
     .replace(/<[^>]+>/g, ' ')
@@ -34,8 +36,6 @@ function stripHtmlForExcerpt(html: string, maxLen = 140): string {
   if (!plain) return 'Empty document';
   return plain.length > maxLen ? `${plain.slice(0, maxLen)}…` : plain;
 }
-
-const AVATAR_PALETTE = ['#4f46e5', '#059669', '#d97706', '#db2777', '#0284c7', '#7c3aed'];
 
 export async function listUsers(customClient?: Client): Promise<User[]> {
   const db = await ensureDbReady(customClient);
@@ -112,13 +112,7 @@ export async function findOrCreateUserByEmail(
     args: [id, derivedName, email, avatarColor, roleTitle, now],
   });
 
-  return {
-    id,
-    name: derivedName,
-    email,
-    avatarColor,
-    roleTitle,
-  };
+  return { id, name: derivedName, email, avatarColor, roleTitle };
 }
 
 export async function listAccessibleDocuments(
@@ -356,7 +350,7 @@ export async function updateDocument(
   const now = new Date().toISOString();
 
   await db.execute({
-    sql: `UPDATE documents SET title = ?, content = ?, updated_at = ? WHERE id = ?`,
+    sql: 'UPDATE documents SET title = ?, content = ?, updated_at = ? WHERE id = ?',
     args: [nextTitle, nextContent, now, documentId],
   });
 
@@ -505,6 +499,31 @@ export async function addDocumentAttachment(
   });
 
   return getDocumentWithAccess(documentId, actingUserId, db);
+}
+
+export async function getAttachmentBinary(
+  documentId: string,
+  actingUserId: string,
+  attachmentId: string,
+  customClient?: Client
+): Promise<{ fileName: string; buffer: Buffer }> {
+  const db = await ensureDbReady(customClient);
+  await getDocumentWithAccess(documentId, actingUserId, db);
+
+  const res = await db.execute({
+    sql: 'SELECT file_name, raw_base64 FROM document_attachments WHERE id = ? AND document_id = ?',
+    args: [attachmentId, documentId],
+  });
+
+  const row = res.rows[0];
+  if (!row) {
+    throw new ServiceError('Attachment not found.', 404);
+  }
+
+  return {
+    fileName: String(row.file_name),
+    buffer: Buffer.from(String(row.raw_base64), 'base64'),
+  };
 }
 
 export async function deleteDocumentAttachment(

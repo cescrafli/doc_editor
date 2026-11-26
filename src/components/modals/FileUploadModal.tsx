@@ -14,7 +14,7 @@ import {
 import {
   SUPPORTED_ATTACHMENT_EXTENSIONS,
   SUPPORTED_IMPORT_EXTENSIONS,
-} from '@/lib/file-parser';
+} from '@/lib/utils/file-parser';
 
 export type UploadMode = 'new-doc' | 'import-into-current' | 'attach-to-current';
 
@@ -52,8 +52,7 @@ export default function FileUploadModal({
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(null);
-    const file = e.target.files?.[0] || null;
-    setSelectedFile(file);
+    setSelectedFile(e.target.files?.[0] || null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -84,10 +83,9 @@ export default function FileUploadModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-xs">
       <div className="w-full max-w-lg overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
-        {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-100 px-6 py-4">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#2B2F36] text-[#35D7BB]">
               <Upload className="h-5 w-5" />
             </div>
             <div>
@@ -109,7 +107,6 @@ export default function FileUploadModal({
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
-          {/* Workflow Mode Selector */}
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
             <button
               type="button"
@@ -119,18 +116,16 @@ export default function FileUploadModal({
               }}
               className={`flex flex-col items-start rounded-xl border p-3 text-left transition-all ${
                 mode === 'new-doc'
-                  ? 'border-indigo-600 bg-indigo-50/60 ring-1 ring-indigo-600'
+                  ? 'border-[#35D7BB] bg-[#35D7BB]/10 ring-1 ring-[#35D7BB]'
                   : 'border-slate-200 hover:bg-slate-50'
               }`}
             >
               <FilePlus2
                 className={`mb-1.5 h-4 w-4 ${
-                  mode === 'new-doc' ? 'text-indigo-600' : 'text-slate-500'
+                  mode === 'new-doc' ? 'text-[#2B2F36]' : 'text-slate-500'
                 }`}
               />
-              <span className="text-xs font-semibold text-slate-900">
-                New Document
-              </span>
+              <span className="text-xs font-semibold text-slate-900">New Document</span>
               <span className="text-[11px] text-slate-500">
                 Turn file into a new editable doc
               </span>
@@ -145,23 +140,17 @@ export default function FileUploadModal({
               }}
               className={`flex flex-col items-start rounded-xl border p-3 text-left transition-all disabled:cursor-not-allowed disabled:opacity-40 ${
                 mode === 'import-into-current'
-                  ? 'border-indigo-600 bg-indigo-50/60 ring-1 ring-indigo-600'
+                  ? 'border-[#35D7BB] bg-[#35D7BB]/10 ring-1 ring-[#35D7BB]'
                   : 'border-slate-200 hover:bg-slate-50'
               }`}
             >
               <FileText
                 className={`mb-1.5 h-4 w-4 ${
-                  mode === 'import-into-current'
-                    ? 'text-indigo-600'
-                    : 'text-slate-500'
+                  mode === 'import-into-current' ? 'text-[#2B2F36]' : 'text-slate-500'
                 }`}
               />
-              <span className="text-xs font-semibold text-slate-900">
-                Import into Draft
-              </span>
-              <span className="text-[11px] text-slate-500">
-                Insert content into current doc
-              </span>
+              <span className="text-xs font-semibold text-slate-900">Import into Draft</span>
+              <span className="text-[11px] text-slate-500">Insert content into current doc</span>
             </button>
 
             <button
@@ -173,34 +162,26 @@ export default function FileUploadModal({
               }}
               className={`flex flex-col items-start rounded-xl border p-3 text-left transition-all disabled:cursor-not-allowed disabled:opacity-40 ${
                 mode === 'attach-to-current'
-                  ? 'border-indigo-600 bg-indigo-50/60 ring-1 ring-indigo-600'
+                  ? 'border-[#35D7BB] bg-[#35D7BB]/10 ring-1 ring-[#35D7BB]'
                   : 'border-slate-200 hover:bg-slate-50'
               }`}
             >
               <Paperclip
                 className={`mb-1.5 h-4 w-4 ${
-                  mode === 'attach-to-current'
-                    ? 'text-indigo-600'
-                    : 'text-slate-500'
+                  mode === 'attach-to-current' ? 'text-[#2B2F36]' : 'text-slate-500'
                 }`}
               />
-              <span className="text-xs font-semibold text-slate-900">
-                Attach File
-              </span>
-              <span className="text-[11px] text-slate-500">
-                Associate attachment with doc
-              </span>
+              <span className="text-xs font-semibold text-slate-900">Attach File</span>
+              <span className="text-[11px] text-slate-500">Associate attachment with doc</span>
             </button>
           </div>
 
-          {/* Target document info */}
           {mode !== 'new-doc' && activeDocTitle && (
             <div className="rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs text-slate-600">
               Target document: <strong className="text-slate-900">{activeDocTitle}</strong>
             </div>
           )}
 
-          {/* Append vs Replace option when importing into current draft */}
           {mode === 'import-into-current' && (
             <div className="flex items-center gap-4 rounded-lg border border-slate-200 bg-slate-50/70 px-3.5 py-2.5 text-xs">
               <span className="font-semibold text-slate-700">Import behavior:</span>
@@ -210,7 +191,7 @@ export default function FileUploadModal({
                   name="importBehavior"
                   checked={importBehavior === 'append'}
                   onChange={() => setImportBehavior('append')}
-                  className="text-indigo-600"
+                  className="accent-[#35D7BB]"
                 />
                 <span>Append to existing content</span>
               </label>
@@ -220,17 +201,16 @@ export default function FileUploadModal({
                   name="importBehavior"
                   checked={importBehavior === 'replace'}
                   onChange={() => setImportBehavior('replace')}
-                  className="text-indigo-600"
+                  className="accent-[#35D7BB]"
                 />
                 <span>Replace document content</span>
               </label>
             </div>
           )}
 
-          {/* File Dropzone / Input */}
           <div>
-            <label className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-slate-50/60 px-6 py-7 text-center transition-colors hover:border-indigo-400 hover:bg-indigo-50/30">
-              <Upload className="mb-2 h-7 w-7 text-indigo-500" />
+            <label className="flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-300 bg-slate-50/60 px-6 py-7 text-center transition-colors hover:border-[#35D7BB] hover:bg-[#35D7BB]/5">
+              <Upload className="mb-2 h-7 w-7 text-[#373D49]" />
               <span className="text-sm font-medium text-slate-800">
                 {selectedFile ? selectedFile.name : 'Click to select a file from your computer'}
               </span>
@@ -253,15 +233,12 @@ export default function FileUploadModal({
             </label>
           </div>
 
-          {/* Explicit Supported File Types Notice */}
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs text-slate-600 space-y-1">
-            <div className="font-semibold text-slate-800">
-              Supported File Formats (Max 2 MB):
-            </div>
+            <div className="font-semibold text-slate-800">Supported File Formats (Max 2 MB):</div>
             {mode === 'attach-to-current' ? (
               <p>
                 Attachments support:{' '}
-                <code className="rounded bg-white px-1 py-0.5 text-[11px] font-mono text-indigo-700">
+                <code className="rounded bg-white px-1 py-0.5 text-[11px] font-mono text-[#2B2F36]">
                   {SUPPORTED_ATTACHMENT_EXTENSIONS.join(', ')}
                 </code>
                 . Text/Markdown/Word attachments also include a 1-click{' '}
@@ -270,7 +247,7 @@ export default function FileUploadModal({
             ) : (
               <p>
                 Rich-text conversion supports:{' '}
-                <code className="rounded bg-white px-1 py-0.5 text-[11px] font-mono text-indigo-700">
+                <code className="rounded bg-white px-1 py-0.5 text-[11px] font-mono text-[#2B2F36]">
                   .md, .markdown, .txt, .docx, .html
                 </code>
                 . Formatting (headings, bold, italics, lists) is automatically preserved.
@@ -285,7 +262,6 @@ export default function FileUploadModal({
             </div>
           )}
 
-          {/* Footer Buttons */}
           <div className="flex items-center justify-end gap-2.5 pt-1">
             <button
               type="button"
@@ -297,7 +273,7 @@ export default function FileUploadModal({
             <button
               type="submit"
               disabled={!selectedFile || loading}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-indigo-700 disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[#35D7BB] px-4 py-2 text-xs font-bold text-[#2B2F36] shadow-xs hover:opacity-90 disabled:opacity-50"
             >
               {loading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
               <span>

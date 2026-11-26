@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { parseFileToHtml, FileValidationError } from '@/lib/file-parser';
-import { createDocument } from '@/lib/document-service';
-import { getActingUserId, handleApiError } from '@/lib/api-helpers';
+import { FileValidationError, parseFileToHtml } from '@/lib/utils/file-parser';
+import { createDocument } from '@/lib/services/document.service';
+import { getActingUserId, handleApiError } from '@/lib/api/http';
 
 export const dynamic = 'force-dynamic';
 

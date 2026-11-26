@@ -3,8 +3,8 @@ import {
   deleteDocument,
   getDocumentWithAccess,
   updateDocument,
-} from '@/lib/document-service';
-import { getActingUserId, handleApiError } from '@/lib/api-helpers';
+} from '@/lib/services/document.service';
+import { getActingUserId, handleApiError } from '@/lib/api/http';
 
 export const dynamic = 'force-dynamic';
 

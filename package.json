@@ -1,13 +1,14 @@
 {
-  "name": "ajaia-docs",
+  "name": "cesctor",
   "version": "1.0.0",
   "private": true,
-  "description": "Ajaia Docs — Lightweight Collaborative Document Editor with Role-Based Sharing & File Import",
+  "description": "CESCTOR — Lightweight Collaborative Document Editor with Role-Based Sharing & File Import",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"
   },

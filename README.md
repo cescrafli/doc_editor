@@ -1,100 +1,123 @@
-# CESCTOR — Lightweight Collaborative Document & Rich-Text Editor
+# CESCTOR — Collaborative Document & Rich-Text Workspace
 
 **Candidate:** Mochamad Rafli Mudji Prasetyo (`raflimudji@gmail.com`)  
-**Role:** AI-Native Full Stack Developer Assessment — Ajaia LLC  
-**Live Deployment URL:** [https://doc-editor-chi.vercel.app/](https://doc-editor-chi.vercel.app/)  
-**Walkthrough Video URL:** [https://youtu.be/kfsXUIBqLaE](https://youtu.be/kfsXUIBqLaE)  
-**Google Drive Deliverables Folder:** [https://drive.google.com/drive/folders/1eEbielSfShxKB3t93SyZ9gPzIApxmEvG?usp=sharing](https://drive.google.com/drive/folders/1eEbielSfShxKB3t93SyZ9gPzIApxmEvG?usp=sharing)
-
-**CESCTOR** is a full-stack collaborative document workspace inspired by Google Docs and Dillinger's split-pane editor/preview experience, engineered with **Next.js 14 (App Router)**, **TypeScript**, **TipTap (ProseMirror)**, **Tailwind CSS**, and **Turso (`@libsql/client` / SQLite)**.
+**Assessment:** Ajaia LLC — AI-Native Full Stack Developer Assignment  
+**Live Deployment:** [https://doc-editor-chi.vercel.app/](https://doc-editor-chi.vercel.app/)  
+**Walkthrough Video:** [https://youtu.be/kfsXUIBqLaE](https://youtu.be/kfsXUIBqLaE)  
+**Deliverables Folder:** [Google Drive](https://drive.google.com/drive/folders/1eEbielSfShxKB3t93SyZ9gPzIApxmEvG?usp=sharing)
 
 ---
 
-## 1. Core Capabilities Implemented
+## Overview
+
+**CESCTOR** is a lightweight collaborative document editor combining a distraction-free split-pane workspace with rich-text formatting, multi-format file import, role-based sharing permissions (`Owner`, `Editor`, `Viewer`), and zero-config local/cloud SQLite persistence via **Turso (`@libsql/client`)**.
+
+### Documentation
+- **[Architecture & Prioritization Note](./docs/ARCHITECTURE.md)** — System design, database schema, RBAC enforcement, and deliberate scope cuts
+- **[AI-Native Workflow Note](./docs/AI_WORKFLOW.md)** — AI tools used, acceleration areas, modified/rejected AI outputs, and verification strategy
+- **[Submission Manifest](./docs/SUBMISSION.md)** — Deliverables checklist, feature status, and next-step roadmap
+
+---
+
+## Core Capabilities
 
 1. **Document Creation & Rich-Text Editing**
-   - Create blank documents, rename documents inline, edit rich-text content in the browser, auto-save (1.2s debounce) + manual **Save** button, and delete owned documents.
-   - Rich-text toolbar supporting: **Bold**, **Italic**, **Underline**, **Strikethrough**, **Headings (H1, H2, H3)**, **Normal Paragraph**, **Bulleted Lists**, **Numbered Lists**, **Blockquotes**, **Code Blocks**, **Undo/Redo**, **Clear Formatting**, and live word/character counts.
-   - Export documents to **Markdown (`.md`)** or **PDF / Print** via clean print stylesheets.
+   - Create blank documents, rename inline, auto-save (`1.2s` debounce) or manual **Save Session**, live split preview, Zen Mode, Night Mode, and delete owned documents.
+   - TipTap / ProseMirror formatting toolbar: **Bold**, **Italic**, **Underline**, **Strikethrough**, **Headings (`H1`–`H3`)**, **Normal Paragraph**, **Bulleted & Numbered Lists**, **Blockquotes**, **Code Blocks**, **Undo/Redo**, **Clear Formatting**, and live word/character counts.
+   - Export to **Markdown (`.md`)**, **HTML / Styled HTML (`.html`)**, or **PDF (Print)**.
 
-2. **File Upload (3 Product-Relevant Workflows)**
-   - **Workflow A — Turn File into a New Editable Document:** Upload a `.md`, `.txt`, `.docx`, or `.html` file from the header bar to automatically convert and open it as a new rich-text document.
-   - **Workflow B — Import File Content into Current Draft:** Append or replace the active document's content from an uploaded `.md`, `.txt`, `.docx`, or `.html` file.
-   - **Workflow C — Document Attachments:** Upload reference files (`.md`, `.txt`, `.docx`, `.html`, `.pdf`, `.png`, `.jpg`, `.jpeg`, `.csv`, `.json` up to **2 MB**) attached to a document, download them, or click **"Insert into Doc"** on text/markdown/Word attachments.
+2. **Multi-Mode File Upload (Max 2 MB)**
+   - **New Document from File:** Converts `.md`, `.markdown`, `.txt`, `.docx`, or `.html` into a new editable rich-text document.
+   - **Import into Active Draft:** Appends or replaces the active document's content from an uploaded file.
+   - **Document Attachments:** Attaches reference files (`.md`, `.txt`, `.docx`, `.html`, `.pdf`, `.png`, `.jpg`, `.jpeg`, `.csv`, `.json`) for download or 1-click insertion into the editor.
+   - Sample file available at [`docs/samples/sample-import.md`](./docs/samples/sample-import.md).
 
-3. **Role-Based Sharing & Access Control (Core + Stretch Goal)**
-   - Every document has an explicit **Owner** and supports sharing with collaborators under two distinct roles:
-     - **Editor (`editor`):** Can edit document content, rename the document, and import/upload files. Cannot delete the document or modify sharing permissions.
-     - **Viewer (`viewer`):** Read-only access. The editor canvas is locked (`editable: false`), a View-Only banner is displayed, and all write API endpoints enforce `403 Forbidden`.
-   - Clear visual distinction in the sidebar with dedicated filter tabs (`All`, `Owned`, `Shared`) and role badges (`Owner`, `Shared • Editor`, `Shared • Viewer`).
+3. **Role-Based Sharing (`Owner`, `Editor`, `Viewer`)**
+   - Sidebar filter tabs (`All`, `Owned`, `Shared`) and explicit role badges distinguish owned vs. shared documents.
+   - Permissions are enforced both in the UI (locking the editor and showing a View-Only banner for `Viewer`) and at the domain/API layer (`403 Forbidden` on unauthorized mutations).
 
-4. **Zero-Config Local & Cloud Persistence (Turso / libSQL + SQLite)**
-   - Uses `@libsql/client` for seamless dual-mode persistence:
-     - **Local Development:** Automatically persists to a local SQLite database file (`file:./local.db`) with zero external setup required.
-     - **Production (Vercel + Turso):** Connects to Turso Cloud SQLite via `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN`.
-     - **Serverless Fallback:** If deployed to Vercel before `TURSO_DATABASE_URL` is configured, automatically falls back to `file:/tmp/ajaia-docs.db` and seeds default users/documents so the live preview never crashes.
+4. **Dual-Mode Persistence (Turso Cloud + Local SQLite)**
+   - **Production (Vercel):** Connects to Turso Cloud SQLite via `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN`.
+   - **Local Development:** Automatically creates and seeds `./local.db` when environment variables are unset.
 
 ---
 
-## 2. Seeded Test Accounts (For Reviewing Sharing Flows)
+## Project Structure
 
-No registration or external OAuth is required to test multi-user sharing. Use the **Account Switcher** in the top-right navigation bar to switch between four seeded users in one click (or sign in with any custom email):
+```text
+.
+├── docs/
+│   ├── ARCHITECTURE.md            # System architecture & scope tradeoffs
+│   ├── AI_WORKFLOW.md             # AI-native engineering workflow note
+│   ├── SUBMISSION.md              # Assessment submission manifest
+│   └── samples/
+│       └── sample-import.md       # Sample Markdown file for upload testing
+├── src/
+│   ├── app/
+│   │   ├── api/                   # Next.js App Router REST endpoints
+│   │   │   ├── documents/         # CRUD, shares, and attachment routes
+│   │   │   ├── upload/parse/      # File-to-HTML conversion endpoint
+│   │   │   └── users/             # Account listing & custom email sign-in
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components/
+│   │   ├── editor/                # RichTextEditor & EditorToolbar
+│   │   ├── layout/                # Navbar, Sidebar, StatusFooter
+│   │   ├── modals/                # ShareModal, FileUploadModal, SettingsDrawer, ShortcutsModal
+│   │   └── workspace/             # WorkspaceApp, DocumentHeader, AttachmentsBar
+│   ├── lib/
+│   │   ├── api/http.ts            # Request user extraction & error responder
+│   │   ├── db/                    # libSQL client factory & schema/seed bootstrap
+│   │   ├── services/              # Core document CRUD & RBAC service layer
+│   │   └── utils/                 # File parser/sanitizer & document exporters
+│   └── types/index.ts             # Shared domain & API TypeScript types
+└── tests/
+    ├── document.service.test.ts   # CRUD, RBAC & attachment integration tests
+    └── file-parser.test.ts        # Parsing, XSS sanitization & exporter unit tests
+```
 
-| Name | Email | Default Seeded Documents & Roles |
+---
+
+## Seeded Test Accounts
+
+Use the **Account Switcher** in the top-right navbar (or the quick-switch bar in the footer) to test sharing roles without registration:
+
+| Name | Email | Default Seeded Roles |
 | :--- | :--- | :--- |
-| **Rafli Prasetyo** *(Default)* | `raflimudji@gmail.com` | **Owner** of *Ajaia Q4 Product Roadmap*, **Editor** on *Collaborative Editor UX Spec*, **Viewer** on *Security & Access Control Policy* |
-| **Sarah Chen** | `sarah@ajaia.com` | **Owner** of *Collaborative Editor UX Spec*, **Editor** on *Ajaia Q4 Product Roadmap*, **Viewer** on *Security & Access Control Policy* |
+| **Rafli Prasetyo** *(Default)* | `raflimudji@gmail.com` | **Owner** of *Welcome to Cesctor.md*, **Editor** on *Collaborative Editor UX Spec*, **Viewer** on *Security & Access Control Policy* |
+| **Sarah Chen** | `sarah@ajaia.com` | **Owner** of *Collaborative Editor UX Spec*, **Editor** on *Welcome to Cesctor.md*, **Viewer** on *Security & Access Control Policy* |
 | **Alex Rivera** | `alex@ajaia.com` | **Owner** of *Security & Access Control Policy*, **Viewer** on *Collaborative Editor UX Spec* |
-| **Maya Patel** | `maya@ajaia.com` | **Viewer** on *Ajaia Q4 Product Roadmap* |
+| **Maya Patel** | `maya@ajaia.com` | **Viewer** on *Welcome to Cesctor.md* |
 
 ---
 
-## 3. Supported File Types & Limits
-
-- **Maximum File Size:** `2 MB` per file (enforced on both client and server).
-- **Rich-Text Import & Conversion Formats:** `.md`, `.markdown`, `.txt`, `.docx` (Word), `.html`, `.htm`.
-- **Document Attachment Formats:** `.md`, `.markdown`, `.txt`, `.docx`, `.html`, `.htm`, `.pdf`, `.png`, `.jpg`, `.jpeg`, `.csv`, `.json`.
-- A sample Markdown file is included at [`samples/sample-import.md`](./samples/sample-import.md) for quick upload testing.
-
----
-
-## 4. Local Setup & Run Instructions
+## Local Setup & Scripts
 
 ### Prerequisites
-- **Node.js** v18.18+ or v20+ (tested on Node v24)
-- **npm** v9+
+- Node.js `v18.18+` (tested on `v24.x`)
+- npm `v9+`
 
-### Step 1: Install Dependencies
+### Run Locally
 ```bash
 npm install
-```
-
-### Step 2: Run in Development Mode
-```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-*(Note: No `.env` file is required for local development. The app automatically creates and seeds `./local.db` on startup.)*
+Open [http://localhost:3000](http://localhost:3000). No `.env` file is required locally — `./local.db` is created and seeded automatically.
 
-### Step 3: Run Automated Tests
+### Verification Commands
 ```bash
-npm test
-```
-Runs the Vitest integration suite (`src/__tests__/document-service.test.ts`) against an isolated in-memory SQLite instance (`file::memory:`), verifying document CRUD, Role-Based Access Control (`Owner` vs `Editor` vs `Viewer` vs `Unauthorized`), and file upload parsing/validation.
-
-### Step 4: Production Build Verification
-```bash
-npm run build
-npm start
+npm run typecheck   # Strict TypeScript check (tsc --noEmit)
+npm test            # Vitest unit & in-memory SQLite integration suite
+npm run build       # Production Next.js build
 ```
 
 ---
 
-## 5. Deploying to Vercel + Turso
+## Deploying to Vercel + Turso
 
-1. Create a free database on [Turso](https://turso.tech) (or via `turso db create ajaia-docs`).
-2. Copy the database URL (`libsql://...`) and auth token (`turso db tokens create ajaia-docs`).
-3. Deploy this repository (`https://github.com/cescrafli/doc_editor.git`) to **Vercel** and configure two environment variables:
+1. Import `https://github.com/cescrafli/doc_editor.git` into **Vercel**.
+2. Configure environment variables:
    - `TURSO_DATABASE_URL`: `libsql://doceditor-cescrafli.aws-ap-southeast-1.turso.io`
-   - `TURSO_AUTH_TOKEN`: `your-turso-auth-token`
-4. On the first request, `initializeSchemaAndSeed()` automatically creates the schema and seeds the 4 test users and 3 sample documents.
+   - `TURSO_AUTH_TOKEN`: `<your-turso-auth-token>`
+3. Deploy — schema creation and initial seeding run automatically on first request.
